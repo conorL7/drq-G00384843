@@ -5,28 +5,28 @@ class Create extends Component {
     constructor() {
         super();
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.onChangeMovieName = this.onChangeMovieName.bind(this);
-        this.onChangeMovieYear = this.onChangeMovieYear.bind(this);
-        this.onChangeMoviePoster = this.onChangeMoviePoster.bind(this);
+        this.onChangeClubName = this.onChangeClubName.bind(this);
+        this.onChangeClubPosition = this.onChangeClubPosition.bind(this);
+        this.onChangeClubCrest = this.onChangeClubCrest.bind(this);
         this.state = {
-            Title: '',
-            Year: '',
-            Poster: ''
+            Club: '',
+            Position: '',
+            Crest: ''
         }
     }
 
     handleSubmit(event) {
-        console.log("Name: " +this.state.Title+
-        " Year: " + this.state.Year +
-        "Poster: " + this.state.Poster);
+        console.log("Club: " +this.state.Club+
+        " Position: " + this.state.Position +
+        "Crest: " + this.state.Crest);
 
-        const NewMovie = {
-            Title: this.state.Title,
-            Year: this.state.Year,
-            Poster: this.state.Poster
+        const NewClub = {
+            Club: this.state.Club,
+            Position: this.state.Position,
+            Crest: this.state.Crest
         }
 
-        axios.post('http://localhost:4000/api/movies', NewMovie)
+        axios.post('http://localhost:4000/api/clubs', NewClub)
         .then((response)=>{
             console.log(response)
         })
@@ -36,59 +36,59 @@ class Create extends Component {
 
         event.preventDefault();
         this.setState({
-            Title:'',
-            Year:'',
-            Poster:''
+            Club:'',
+            Position:'',
+            Crest:''
         });
     }
-    onChangeMovieName(event) {
+    onChangeClubName(event) {
         this.setState({
-            Title: event.target.value
+            Club: event.target.value
         })
     }
-    onChangeMovieYear(event) {
+    onChangeClubPosition(event) {
         this.setState({
-            Year: event.target.value
+            Position: event.target.value
         })
     }
-    onChangeMoviePoster(event){
+    onChangeClubCrest(event){
         this.setState({
-            Poster: event.target.value
+            Crest: event.target.value
         })
     }
 
     render() {
         return (
             <div>
-                <h1>This is my Create Component!</h1>
+                <h1>Add a Club!</h1>
                 <form onSubmit={this.handleSubmit}>
 
                     <div className="form-group">
-                        <label>Add Movie Name: </label>
+                        <label>Add Club Name: </label>
                         <input type="text"
                             className="form-control"
-                            value={this.state.Title}
-                            onChange={this.onChangeMovieName}
+                            value={this.state.Club}
+                            onChange={this.onChangeClubName}
                         />
                     </div>
                     <div className="form-group">
-                        <label>Add Movie Year: </label>
+                        <label>Add Club Predicted Position: </label>
                         <input type="text"
                             className="form-control"
-                            value={this.state.Year}
-                            onChange={this.onChangeMovieYear}
+                            value={this.state.Position}
+                            onChange={this.onChangeClubPosition}
                         />
                     </div>
                     <div className="form-group">
-                        <label>Add Movie Poster: </label>
+                        <label>Add Club Crest: </label>
                         <textarea type="text"
                             className="form-control"
-                            value={this.state.Poster}
-                            onChange={this.onChangeMoviePoster}
+                            value={this.state.Crest}
+                            onChange={this.onChangeClubCrest}
                         />
                     </div>
                     <div>
-                        <input type="submit" value="Add Movie"
+                        <input type="submit" value="Add Club"
                             className="btn btn-primary"></input>
                     </div>
                 </form>

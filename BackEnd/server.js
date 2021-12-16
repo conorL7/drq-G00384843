@@ -19,8 +19,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
+// requiring mongoose
 const mongoose = require('mongoose');
 
+// using strConnection to connect to databbase
 const strConnection = 'mongodb+srv://admin:admin@cluster0.8taek.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
 main().catch(err => console.log(err));
@@ -29,45 +31,50 @@ async function main() {
   await mongoose.connect(strConnection);
 }
 
-const movieSchema = new mongoose.Schema({
-    Title:String,
-    Year:String,
-    Poster:String
+//defining schema
+const clubSchema = new mongoose.Schema({
+    Club:String,
+    Position:String,
+    Crest:String
 });
 
-const movieModel = mongoose.model('martindfgdfgdfg', movieSchema);
-
+// creating new model for database
+const clubModel = mongoose.model('martindfgdfgdfg', clubSchema);
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
-app.post('/api/movies', (req,res)=>{
+app.post('/api/clubs', (req,res)=>{
     console.log(req.body);
-    console.log(req.body.Title);
-    console.log(req.body.Year);
-    console.log(req.body.Poster);
+    console.log(req.body.Club);
+    console.log(req.body.Position);
+    console.log(req.body.Crest);
 
-    movieModel.create({
-        Title:req.body.Title,
-        Year:req.body.Year,
-        Poster:req.body.Poster
+    // clubModel model
+    clubModel.create({
+        Club:req.body.Club,
+        Position:req.body.Position,
+        Crest:req.body.Crest
     });
+    // Data sent notification
     res.send('Data Sent to Server!')
 })
 
-app.get('/api/movies/:id',(req, res)=>{
+app.get('/api/clubs/:id',(req, res)=>{
     console.log(req.params.id);
 
-    movieModel.findById(req.params.id,(error,data)=>{
+    clubModel.findById(req.params.id,(error,data)=>{
         res.json(data);
     })
 })
 
-app.delete('/api/movies/:id', (req, res)=>{
+// HTTP delete() method Listening at /api/clubs/:id.
+app.delete('/api/clubs/:id', (req, res)=>{
     console.log('Deleteing : '+req.params.id);
 
-    movieModel.deleteOne({_id:req.params.id},
+    // finds record by ID and Deletes it.
+    clubModel.deleteOne({_id:req.params.id},
         (error, data)=>{
             if(error)
                 res.send(error)
@@ -75,22 +82,21 @@ app.delete('/api/movies/:id', (req, res)=>{
         })
 })
 
-app.put('/api/movies/:id',(req, res)=>{
+// passing up an object containing new club
+app.put('/api/clubs/:id',(req, res)=>{
     console.log('update');
     console.log(req.body);
     console.log("Updating: " + req.params.id);
 
-    movieModel.findByIdAndUpdate(req.params.id, req.body, {new:true},
+    clubModel.findByIdAndUpdate(req.params.id, req.body, {new:true},
         (err,data)=>{
             res.send(data);
         })
 
 })
 
-
-
-app.get('/api/movies', (req, res) => {
-    movieModel.find((err, data)=>{
+app.get('/api/clubs', (req, res) => {
+    clubModel.find((err, data)=>{
         res.json(data);
     })
           

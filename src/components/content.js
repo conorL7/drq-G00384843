@@ -4,8 +4,8 @@ class Content extends Component {
     render() {
         return (
             <div>
-                <h1>Hello World!</h1>
-                <h2>It is {new Date().toLocaleTimeString()}.</h2>
+                <h1>Premier League Top 4 Predictor!</h1>
+                <h1>Click on "Create" to get started!</h1>
             </div>
         );
     }
